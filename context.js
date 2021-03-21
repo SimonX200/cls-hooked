@@ -69,7 +69,7 @@ Namespace.prototype.get = function get(key) {
 
 Namespace.prototype.createContext = function createContext() {
   // Prototype inherit existing context if created a new child context within existing context.
-  let context = Object.create(this.active ? this.active : Object.prototype);
+  let context = { ...this.active };
   context._ns_name = this.name;
   context.id = currentUid;
 
@@ -473,5 +473,3 @@ function debug2(...args) {
     return fn.constructor.name;
   }
 }*/
-
-
