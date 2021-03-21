@@ -25,7 +25,7 @@ describe('cls performance leak', function () {
     let count_above_base = 0;
     await sleep(1000);
     for (let i = 0; i < REPEATS; i++) {
-      await sleep(10);
+      await sleep(1);
       const start = Date.now();
       for (let j = 0; j < INNER_LOOPS; j++) {
         await ns.runPromise(t2);
@@ -45,7 +45,7 @@ describe('cls performance leak', function () {
         }
 
         expect(count_above_base).below(15);
-        console.log(i, count_above_base, avr_dur, base_limit);
+        //console.log(i, count_above_base, avr_dur, base_limit);
       }
     }
   });
