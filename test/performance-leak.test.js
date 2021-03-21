@@ -6,20 +6,21 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function t2(l) {
-  if (l > 1) {
-  }
+let ns;
+
+async function t2() {
+  const x = ns.get('something-not-set');
 }
 
 describe('cls performance leak', function () {
   this.timeout(200000);
 
-  const cls = require('../index');
-
   it('Execute ns.runPromise', async () => {
+    const cls = require('../index');
+    ns = cls.createNamespace('abc');
+
     const INNER_LOOPS = 100;
     const REPEATS = 1000;
-    const ns = cls.createNamespace('abc');
     let base_limit;
     let last_limit;
     let count_above_base = 0;
@@ -45,8 +46,11 @@ describe('cls performance leak', function () {
         }
 
         expect(count_above_base).below(15);
-        //console.log(i, count_above_base, avr_dur, base_limit);
+        console.log(i, count_above_base, avr_dur, base_limit);
       }
     }
+
+    ns = undefined;
+    cls.destroyNamespace('abc');
   });
 });
