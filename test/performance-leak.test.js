@@ -1,5 +1,3 @@
-'use strict';
-
 const { expect } = require('chai');
 
 function sleep(ms) {
@@ -9,7 +7,7 @@ function sleep(ms) {
 let ns;
 
 async function t2() {
-  const x = ns.get('something-not-set');
+  ns.get('something-not-set');
 }
 
 describe('cls performance leak', function () {
